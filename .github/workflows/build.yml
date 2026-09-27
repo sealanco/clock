@@ -4,35 +4,22 @@ on: push
 
 jobs:
   build:
-    name: Build APK with Buildozer
-    runs-on: ubuntu-22.04
+    name: Build APK with Buildozer (Docker)
+    runs-on: ubuntu-latest
 
     steps:
-    # Configuração do Java 21
-      - name: Set up JDK 21
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-          
+      # 1. Obter o código-fonte (primeiro passo obrigatório)
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Cache Buildozer Global Directory
-        uses: actions/cache@v4
-        with:
-          path: ~/.buildozer
-          key: buildozer-global-${{ runner.os }}-${{ hashFiles('buildozer.spec') }}
-          restore-keys: |
-            buildozer-global-${{ runner.os }}-
-
+      # 2. Compilar no Docker sem usar cache local para evitar conflitos de permissão
       - name: Build APK with Docker
         run: |
           docker run --rm \
             --volume "${{ github.workspace }}":/home/user/hostcwd \
-            --volume ~/.buildozer:/home/user/.buildozer \
             ghcr.io/kivy/buildozer:latest android debug
 
+      # 3. Guardar o APK gerado
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
