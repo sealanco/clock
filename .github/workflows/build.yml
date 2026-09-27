@@ -14,7 +14,6 @@ jobs:
       - name: Build APK with Docker
         run: |
           docker run --rm \
-            --user user \
             --volume "${{ github.workspace }}":/home/user/hostcwd \
             --entrypoint /bin/bash \
             ghcr.io/kivy/buildozer:latest \
