@@ -65,4 +65,4 @@ android.sdk_build_tools_version = 34.0.0
 log_level = 1
 
 # (int) Display warning if buildozer is run as root (0 = disable, 1 = enable)
-warn_on_root = 1
+warn_on_root = 0
