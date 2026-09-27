@@ -17,7 +17,7 @@ jobs:
             --volume "${{ github.workspace }}":/home/user/hostcwd \
             --entrypoint /bin/bash \
             ghcr.io/kivy/buildozer:latest \
-            -c "pip install 'setuptools<69.0.0' 'cython<3.0.0' && buildozer android debug"
+            -c "pip install --upgrade 'setuptools<69.0.0' 'cython<3.0.0' git+https://github.com/kivy/buildozer.git git+https://github.com/kivy/python-for-android.git && buildozer android debug"
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
