@@ -8,18 +8,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Obter o código-fonte (primeiro passo obrigatório)
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # 2. Compilar no Docker sem usar cache local para evitar conflitos de permissão
       - name: Build APK with Docker
         run: |
           docker run --rm \
             --volume "${{ github.workspace }}":/home/user/hostcwd \
-            ghcr.io/kivy/buildozer:latest android debug
+            --entrypoint /bin/bash \
+            ghcr.io/kivy/buildozer:latest \
+            -c "pip install 'setuptools<69.0.0' 'cython<3.0.0' && buildozer android debug"
 
-      # 3. Guardar o APK gerado
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
