@@ -39,16 +39,18 @@ fullscreen = 0
 android.accept_sdk_license = True
 
 # (int) Target Android API level
-android.api = 33
+android.api = 36
 
 # (int) Minimum API supported by your APK
-android.minapi = 21
+android.minapi = 24
 
 # (str) Android NDK architecture to build for (arm64-v8a, armeabi-v7a, x86, x86_64)
 android.archs = arm64-v8a
 
 # (bool) Enable AndroidX support
 android.enable_androidx = True
+
+android.sdk_build_tools_version = 36.0.0
 
 #
 # Buildozer global options
