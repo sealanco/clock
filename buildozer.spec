@@ -44,6 +44,9 @@ android.api = 36
 # (int) Minimum API supported by your APK
 android.minapi = 24
 
+android.sdk = 36
+android.ndk = 25b
+
 # (str) Android NDK architecture to build for (arm64-v8a, armeabi-v7a, x86, x86_64)
 android.archs = arm64-v8a
 
