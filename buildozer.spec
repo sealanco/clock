@@ -16,7 +16,7 @@ source.dir = .
 source.include_exts = py,png,jpg,kv,atlas
 
 # (str) Application versioning
-version = 0.1.0
+version = 0.2.0
 
 # (list) Application requirements
 # Add Python dependencies separated by commas (e.g., python3,kivy,requests)
