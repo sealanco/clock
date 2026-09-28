@@ -1,43 +1,44 @@
 from kivy.app import App
-from kivy.clock import Clock
-from kivy.core.text import LabelBase
-from kivy.core.window import Window
-from kivy.utils import get_color_from_hex
-
-from time import strftime
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.label import Label
+from kivy.uix.button import Button
 
 
-class ClockApp(App):
-    sw_started = False
-    sw_seconds = 0
+class HelloWorldApp(App):
+    def build(self):
+        # Main layout container
+        layout = BoxLayout(
+            orientation='vertical',
+            padding=30,
+            spacing=20
+        )
 
-    def on_start(self):
-        Clock.schedule_interval(self.update, 0)
+        # Label widget
+        self.label = Label(
+            text='Hello, World!',
+            font_size='28sp',
+            color=(1, 1, 1, 1)  # RGBA: White
+        )
 
-    def update(self, nap):
-        if self.sw_started:
-            self.sw_seconds += nap
+        # Button widget
+        button = Button(
+            text='Click Me!',
+            size_hint=(1, 0.3),
+            font_size='20sp'
+        )
+        # Bind button press to event handler
+        button.bind(on_press=self.on_button_click)
 
-        self.root.ids.time.text = strftime('[b]%H[/b]:%M:%S')
+        # Add widgets to layout
+        layout.add_widget(self.label)
+        layout.add_widget(button)
 
-        m, s = divmod(self.sw_seconds, 60)
-        self.root.ids.stopwatch.text = ('%02d:%02d.[size=40]%02d[/size]' %
-                                        (int(m), int(s), int(s * 100 % 100)))
+        return layout
 
-    def start_stop(self):
-        self.root.ids.start_stop.text = 'Start' if self.sw_started else 'Stop'
-        self.sw_started = not self.sw_started
+    def on_button_click(self, instance):
+        self.label.text = 'Button Clicked!'
 
-    def reset(self):
-        if self.sw_started:
-            self.root.ids.start_stop.text = 'Start'
-            self.sw_started = False
-
-        self.sw_seconds = 0
 
 if __name__ == '__main__':
-    Window.clearcolor = get_color_from_hex('#101216')
-    LabelBase.register(name='Roboto',
-                       fn_regular='Roboto-Thin.ttf',
-                       fn_bold='Roboto-Medium.ttf')
-    ClockApp().run()
+    HelloWorldApp().run()
+    
